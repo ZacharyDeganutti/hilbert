@@ -5,7 +5,7 @@
 ;; Draws a curve and outputs it to a file called hilbert.png
 (define (draw-curve iterations)
   (define scale 10)
-  (define size (+ 20 (* scale (expt 2 (+ 1 iterations)))))
+  (define size (* scale (expt 2 (+ 1 iterations))))
   (define target (make-bitmap size size))
   (define dc (new bitmap-dc% [bitmap target]))
   (define (scale-curve curve scale)
@@ -16,8 +16,8 @@
       (send p move-to 0 0)
       (map (lambda (pt) (send p line-to (first pt) (second pt))) curve)
       p))
-  (send dc set-pen "White" 3 'solid)
-  (send dc set-brush "Black" 'transparent)
+  (send dc set-pen "Black" 5 'solid)
+  (send dc set-brush "White" 'transparent)
   (send dc draw-path curve-path)
   (send target save-file "hilbert.png" 'png))
 
